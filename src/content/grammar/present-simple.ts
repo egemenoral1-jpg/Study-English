@@ -1,0 +1,47 @@
+import { defineTopic, fill, fix, order, tr } from "./types";
+
+export default defineTopic(
+  {
+    id: "present-simple",
+    order: 1,
+    title: "Present Simple",
+    titleTr: "Geniş zaman: alışkanlıklar ve genel doğrular",
+    rule: [
+      "Alışkanlıklar, rutinler ve her zaman doğru olan şeyler için kullanılır.",
+      "I / you / we / they + yalın fiil → I work from home.",
+      "He / she / it + fiil-s → He works. (go → goes, watch → watches, study → studies)",
+      "Olumsuz: don't / doesn't + yalın fiil. Soru: Do / Does + özne + yalın fiil?",
+      "Fiil varken is / am / are EKLENMEZ: She is drinks ✗ → She drinks ✓",
+    ],
+    examples: [
+      { en: "Barış usually wakes up at 7 a.m.", tr: "Barış genellikle sabah 7'de uyanır." },
+      { en: "My girlfriend drinks coffee every morning.", tr: "Kız arkadaşım her sabah kahve içer." },
+      { en: "He doesn't work on weekends.", tr: "Hafta sonları çalışmaz." },
+    ],
+    watchOut: "Her cümlede bir fiil olmalı (I am late, I work late) ve fiil varken is eklenmez.",
+  },
+  [
+    tr("Barış genellikle sabah 7'de uyanır.", "Barış usually (wakes|gets) up at 7[ a.m.| in the morning].", "Barış = he → fiil -s alır: wake → wakes.", "third-person-s"),
+    tr("Kız arkadaşım her sabah kahve içer.", "My girlfriend drinks coffee (every|each) morning.", "Fiil (drinks) zaten var; araya is girmez. girlfriend tek kelime, coffee çift f ve çift e.", "be-with-verb"),
+    tr("Evden çalışırım.", "I work (from|at) home.", "I + yalın fiil: I work. Evden çalışmak = work from home.", "missing-verb"),
+    tr("Hafta sonları çalışmam.", ["I don't work (on|at) (weekends|the weekend).", "I don't work (on|at) the weekends."], "I ile olumsuzda don't + yalın fiil. Hafta sonları = on weekends.", "prepositions"),
+    tr("O (erkek) her gün kod yazar.", "He writes code (every|each) day.", "He → writes. 'every day' iki kelime (everyday = sıradan, sıfat).", "third-person-s"),
+    tr("Bilgisayarın sunucuya bir istek gönderir.", "Your (computer|PC) sends a request to the server.", "Your computer = it → send + s = sends. Sunucu belirli olduğu için the server.", "third-person-s"),
+    fill("She ___ (not / like) meetings in the morning.", "doesn't like", "She ile olumsuz: doesn't + yalın fiil (like, likes değil).", "third-person-s"),
+    fill("___ you work on weekends?", "Do", "You ile soru: Do + özne + yalın fiil.", "third-person-s"),
+    fill("My brother ___ (study) computer engineering.", "studies", "Ünsüz + y ile biten fiil he/she/it ile -ies alır: study → studies.", "third-person-s"),
+    fill("The app ___ (crash) when I click this button.", "crashes", "The app = it; -sh ile biten fiil -es alır: crash → crashes.", "third-person-s"),
+    fix("Barış is cooked köfte every Sunday.", "Barış cooks köfte (every|on) Sunday[s].", "Fiil varken is eklenmez ve he/she/it ile fiil -s alır: Barış cooks.", "be-with-verb"),
+    fix("My girlfriend is drinks coffee every day.", "My girlfriend drinks coffee (every|each) day.", "drinks zaten fiil; is fazladan.", "be-with-verb"),
+    fix("He usually wake up late.", "He usually wakes up late.", "He → wake + s = wakes.", "third-person-s"),
+    fix("I late at weekends.", ["I am late (on|at) (weekends|the weekend).", "I (sleep|wake up|get up) late (on|at) (weekends|the weekend)."], "Cümlede fiil yok: I am late ya da I sleep late. Hafta sonları = on weekends.", "missing-verb"),
+    fix("It's go to the server.", ["It goes to the server.", "It is going to the server."], "it's = it is; arkasından yalın fiil gelmez. It goes …", "its-verb"),
+    fix("She don't work here.", "She (doesn't|does not) work here.", "She ile don't değil doesn't kullanılır.", "third-person-s"),
+    order("Ekibimiz her sabah toplantı yapar.", "Our team has a meeting every morning.", "Sıra: özne (our team) + fiil (has) + nesne (a meeting) + zaman (every morning).", "word-order"),
+    order("Sunucu yanıtı geri gönderir.", "The server sends the response back.", "İngilizcede özne başa gelir: The server sends … (Then comes the response ✗).", "word-order"),
+    tr("Bir IP adresi bir ev adresine benzer.", ["An IP address is (like|similar to) a home address.", "An IP address looks like a home address."], "'like' fiil değil, edattır; cümleye fiil gerekir: is like / is similar to.", "missing-verb"),
+    tr("Annem kahve içmez, çay içer.", "My mother (doesn't|does not) drink coffee[;|,] she drinks tea.", "doesn't + yalın fiil (drink), olumluda she drinks.", "third-person-s"),
+    tr("Toplantılar genellikle 10'da başlar.", "(The meetings|Meetings) usually (start|begin) at 10[ a.m.| o'clock].", "Meetings = they → yalın fiil (start). Saat için at kullanılır.", "prepositions"),
+    tr("Bu araç hataları otomatik olarak bulur.", "This tool (finds|detects) (errors|bugs|mistakes) automatically.", "This tool = it → finds. Fiili tamamlayan zarf -ly: automatically.", "third-person-s"),
+  ],
+);
