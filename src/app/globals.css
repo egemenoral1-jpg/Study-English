@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+/* Karanlık mod: <html class="dark"> olduğunda `dark:` sınıfları devreye girer. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Tasarım belirteçleri (design tokens).
+ * Sade, göz yormayan bir palet: sıcak gri zemin + sakin bir mavi-yeşil vurgu.
+ */
+@theme {
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-serif: Georgia, "Times New Roman", serif;
+
+  --color-accent-50: #effaf8;
+  --color-accent-100: #d6f2ed;
+  --color-accent-200: #ade4da;
+  --color-accent-300: #7acfc2;
+  --color-accent-400: #47b3a5;
+  --color-accent-500: #2b978a;
+  --color-accent-600: #207a70;
+  --color-accent-700: #1d625b;
+  --color-accent-800: #1b4f4a;
+  --color-accent-900: #1a423e;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  @apply bg-stone-50 text-stone-800 antialiased dark:bg-stone-950 dark:text-stone-200;
+}
+
+/* Tekrar kullanılan küçük bileşen sınıfları */
+@layer components {
+  .card {
+    @apply rounded-2xl border border-stone-200 bg-white p-5 shadow-sm dark:border-stone-800 dark:bg-stone-900;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-medium transition
+      focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-500 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply btn bg-accent-600 text-white hover:bg-accent-700 dark:bg-accent-500 dark:hover:bg-accent-400 dark:text-stone-950;
+  }
+  .btn-ghost {
+    @apply btn border border-stone-300 bg-white text-stone-700 hover:bg-stone-100 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-200 dark:hover:bg-stone-800;
+  }
+  .input {
+    @apply w-full rounded-xl border border-stone-300 bg-white px-3 py-2 text-base text-stone-900 placeholder:text-stone-400
+      focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-500/30 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100;
+  }
+  .chip {
+    @apply inline-flex items-center rounded-full bg-stone-100 px-2.5 py-0.5 text-xs font-medium text-stone-600 dark:bg-stone-800 dark:text-stone-300;
+  }
+  .label {
+    @apply text-xs font-semibold uppercase tracking-wide text-stone-500 dark:text-stone-400;
+  }
+}
+
+/* Hata kontrolünde altı çizili gösterim */
+.mark-error {
+  text-decoration: underline wavy #dc2626;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1.5px;
+}
+.mark-warning {
+  text-decoration: underline wavy #d97706;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1.5px;
+}
