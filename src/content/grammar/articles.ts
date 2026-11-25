@@ -1,0 +1,47 @@
+import { defineTopic, fill, fix, order, tr } from "./types";
+
+export default defineTopic(
+  {
+    id: "articles",
+    order: 10,
+    title: "a / an / the",
+    titleTr: "Belirsiz ve belirli tanımlıklar",
+    rule: [
+      "a / an → herhangi bir, ilk kez söz edilen tekil şey: a website, an app.",
+      "an → sesli harf SESİYLE başlayan kelimeden önce: an hour, an engineer · a user, a university.",
+      "the → bilinen, belirli şey: the server (konuştuğumuz sunucu), the internet.",
+      "Meslekten önce a / an: I'm a developer. She's an engineer.",
+      "İkisi birlikte kullanılmaz: the a website ✗ → a website / the website ✓",
+    ],
+    examples: [
+      { en: "I'm a software developer.", tr: "Yazılım geliştiricisiyim." },
+      { en: "I built a website. The website is very fast.", tr: "Bir web sitesi yaptım. Web sitesi çok hızlı." },
+      { en: "It takes an hour to deploy the app.", tr: "Uygulamayı canlıya almak bir saat sürüyor." },
+    ],
+    watchOut: "Meslekten önce a'yı unutma ve the ile a'yı yan yana koyma.",
+  },
+  [
+    tr("Ben bir yazılım geliştiricisiyim.", "(I'm|I am) a software (developer|engineer).", "Meslekten önce a: I'm a developer.", "articles"),
+    tr("O (kadın) bir mühendis.", "(She's|She is) an engineer.", "engineer sesli harfle başlar → an.", "articles"),
+    tr("Bir web sitesi yaptım. Web sitesi çok hızlı.", "I (built|made|created) a website. The website is very fast.", "İlk söz → a website; ikinci kez → the website.", "articles"),
+    tr("Uygulamayı canlıya almak bir saat sürüyor.", "It takes (an|one) hour to deploy the app.", "hour'da h okunmaz → an hour.", "articles"),
+    tr("Sunucu yanıtı gönderiyor.", "The server (sends|is sending) the response.", "Belirli sunucu ve belirli yanıt → the.", "articles"),
+    tr("Babam bir öğretmen.", "My father is a teacher.", "Meslek → a teacher.", "articles"),
+    tr("Bir üniversitede çalışıyorum.", "I work (at|in|for) a university.", "university 'yu' sesiyle başlar → a university.", "articles"),
+    fill("I have ___ idea!", "an", "idea sesli harfle başlar → an.", "articles"),
+    fill("She is ___ user of our app.", "a", "user 'yu' sesiyle başlar → a.", "articles"),
+    fill("Can you open ___ window, please? (odadaki tek pencere)", "the", "İkimizin de bildiği pencere → the.", "articles"),
+    fill("He is ___ honest man.", "an", "honest'ta h okunmaz → an.", "articles"),
+    fill("I read ___ interesting article about Git.", "an", "interesting sesli harfle başlar → an.", "articles"),
+    fix("I'm developer.", "(I'm|I am) a developer.", "Meslekten önce a gerekir.", "articles"),
+    fix("I visited the a website yesterday.", ["I visited a website yesterday.", "I visited the website yesterday."], "the ve a birlikte kullanılmaz.", "articles"),
+    fix("She is a engineer.", "(She's|She is) an engineer.", "Sesli harften önce an.", "articles"),
+    fix("He works as an software engineer.", "He works as a software engineer.", "software ünsüzle başlar → a.", "articles"),
+    fix("Then comes the response from server.", ["Then the response comes from the server.", "Then the server sends the response.", "Then the response comes back from the server."], "Özne başa gelir ve belirli sunucu için the gerekir.", "word-order"),
+    order("Bir veritabanı verileri düzenli bir şekilde saklar.", "A database stores data in an organized way.", "A database (genel) + fiil + nesne + nasıl.", "word-order"),
+    order("İnternet milyonlarca bilgisayarı birbirine bağlar.", "The internet connects millions of computers.", "Tek olan şeyler the alır: the internet.", "word-order"),
+    tr("Bu bir hata değil, bir özellik.", ["(It's not|It isn't|This is not|This isn't) a bug[,] (it's|it is) a feature.", "(It's not|It isn't|This is not|This isn't) a bug[;|.] (It's|It is) a feature."], "Tekil sayılabilir isimler a alır: a bug, a feature.", "articles"),
+    tr("Yeni bir laptopa ihtiyacım var.", "I need a new laptop.", "Herhangi bir laptop → a new laptop.", "articles"),
+    tr("Bir saat sonra bir toplantım var.", ["I have a meeting in an hour.", "I have a meeting in one hour."], "a meeting, an hour; 'sonra' = in (gelecekte).", "articles"),
+  ],
+);

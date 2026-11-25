@@ -1,0 +1,47 @@
+import { defineTopic, fill, fix, order, tr } from "./types";
+
+export default defineTopic(
+  {
+    id: "prepositions",
+    order: 9,
+    title: "Edatlar ve phrasal verb'ler",
+    titleTr: "apply for, work on, at home, on weekends…",
+    rule: [
+      "Bazı fiiller edatıyla birlikte öğrenilir: apply for, work on, look for, set up, wait for.",
+      "Zaman: at + saat (at 8 a.m.) · on + gün (on Monday, on weekends) · in + ay/yıl (in May, in 2024).",
+      "Yer: at home · at work · in the office · in front of (önünde) · next to (yanında).",
+      "go home (to yok) · go to work · go abroad (to yok).",
+      "Edatı atlarsan anlam bozulur: I'm looking a job ✗ → I'm looking for a job ✓",
+    ],
+    examples: [
+      { en: "I'm going to apply for a job at Google.", tr: "Google'daki bir işe başvuracağım." },
+      { en: "We're working on a new feature.", tr: "Yeni bir özellik üzerinde çalışıyoruz." },
+      { en: "I usually wake up at 8 a.m. on weekdays.", tr: "Hafta içi genelde sabah 8'de uyanırım." },
+    ],
+    watchOut: "apply FOR, work ON, look FOR, wait FOR · at home, on weekends, at 8 a.m.",
+  },
+  [
+    tr("Bir işe başvurmak istiyorum.", "(I want|I would like|I'd like) to apply for a job.", "Başvurmak = apply for (for unutma).", "prepositions"),
+    tr("Yeni bir özellik üzerinde çalışıyorum.", "(I'm|I am) working on a new feature.", "Bir şey üzerinde çalışmak = work on.", "prepositions"),
+    tr("Anahtarlarımı arıyorum.", "(I'm|I am) looking for my keys.", "Aramak = look for.", "prepositions"),
+    tr("Yeni sunucuyu kurdum.", "I set up the new server.", "Kurmak (sistem) = set up (iki kelime, fiil olarak).", "prepositions"),
+    tr("Hafta sonları evde kalırım.", ["I stay (at home|home) (on|at) (weekends|the weekend).", "(On|At) (weekends|the weekend)[,] I stay (at home|home)."], "Evde = at home; hafta sonları = on weekends.", "prepositions"),
+    tr("Toplantı sabah 9'da.", "The meeting is at 9[ a.m.| in the morning| o'clock].", "Saat için at: at 9 a.m.", "prepositions"),
+    tr("Binanın önünde bekliyorum.", "(I'm|I am) waiting in front of the building.", "Önünde = in front of; beklemek = wait (for + kişi).", "prepositions"),
+    fill("I'm waiting ___ the bus.", "for", "wait for + bir şey/kişi.", "prepositions"),
+    fill("My birthday is ___ May.", "in", "Ay için in: in May.", "prepositions"),
+    fill("See you ___ Monday!", "on", "Gün için on: on Monday.", "prepositions"),
+    fill("I was born ___ 1999.", "in", "Yıl için in: in 1999.", "prepositions"),
+    fill("She is good ___ math.", "at", "-de iyi olmak = good at.", "prepositions"),
+    fill("This depends ___ the budget.", "on", "-e bağlı olmak = depend on.", "prepositions"),
+    fix("I applied a job at a startup.", "I applied for a job at a startup.", "apply for: for eksik.", "prepositions"),
+    fix("We are working the code right now.", "(We're|We are) working on the code (right now|now).", "Kod üzerinde çalışmak = work on the code.", "prepositions"),
+    fix("I go to home after work.", "I go home after work.", "home'dan önce to gelmez: go home.", "prepositions"),
+    fix("The class starts in 8 a.m.", "The class starts at 8[ a.m.].", "Saat için at.", "prepositions"),
+    fix("I'm in home now.", "(I'm|I am) (at home|home) now.", "Evde = at home.", "prepositions"),
+    order("Mülakatı dört gözle bekliyorum.", "I am looking forward to the interview.", "look forward to + isim / -ing.", "word-order"),
+    order("Raporu cuma gününe kadar bitirmeliyim.", "I have to finish the report by Friday.", "by + gün = en geç o güne kadar.", "word-order"),
+    tr("Sabahları erken kalkarım.", "I (get up|wake up) early in the morning[s].", "Sabahları = in the morning; kalkmak = get up / wake up.", "prepositions"),
+    tr("Arkadaşım bana yardım için geri döndü.", "My friend came back to help me.", "Geri dönmek = come back (came back).", "prepositions"),
+  ],
+);
