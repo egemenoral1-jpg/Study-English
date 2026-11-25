@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { syncSeedWords } from "@/lib/db";
+import { ensureSeeded } from "@/lib/db";
 
 /**
  * Uygulama açıldığında bir kez çalışır: içerik dosyalarındaki kelimeleri
@@ -9,7 +9,7 @@ import { syncSeedWords } from "@/lib/db";
  */
 export function AppInit() {
   useEffect(() => {
-    syncSeedWords().catch((err) => console.error("Kelime verisi yüklenemedi:", err));
+    ensureSeeded().catch((err) => console.error("Kelime verisi yüklenemedi:", err));
   }, []);
   return null;
 }

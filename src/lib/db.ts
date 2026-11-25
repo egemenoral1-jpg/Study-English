@@ -80,6 +80,17 @@ export async function syncSeedWords(): Promise<void> {
   });
 }
 
+let seedPromise: Promise<void> | null = null;
+
+/**
+ * Seed eşitlemesini bir kez çalıştırır; sayfalar veriyi okumadan önce bunu bekler.
+ * (İlk açılışta kelimeler henüz eklenmemişken boş liste görünmesin diye.)
+ */
+export function ensureSeeded(): Promise<void> {
+  if (!seedPromise) seedPromise = syncSeedWords();
+  return seedPromise;
+}
+
 // ─────────────────────────── Kayıt yardımcıları ───────────────────────────
 
 export async function logActivity(kind: ActivityKind, ref?: string, correct?: boolean): Promise<void> {
