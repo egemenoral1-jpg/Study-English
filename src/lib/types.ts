@@ -77,6 +77,8 @@ export interface WordRecord {
   /** Bir sonraki tekrar zamanı (ms). 0 = hiç çalışılmamış (yeni kart). */
   due: number;
   lastReview?: number;
+  /** İlk kez çalışıldığı an (günlük yeni kart sınırı için). */
+  firstReview?: number;
 }
 
 export type ActivityKind = "review" | "grammar" | "reading" | "writing";
@@ -93,7 +95,7 @@ export interface ActivityRecord {
   correct?: boolean;
 }
 
-export type MistakeSource = "writing" | "grammar" | "reading" | "checker";
+export type MistakeSource = "writing" | "grammar" | "reading" | "vocab" | "checker";
 
 /** Hata defteri satırı: kural motorunun ya da gramer alıştırmalarının yakaladığı bir hata. */
 export interface MistakeRecord {
