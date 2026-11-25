@@ -1,0 +1,47 @@
+import { defineTopic, fill, fix, order, tr } from "./types";
+
+export default defineTopic(
+  {
+    id: "comparatives",
+    order: 8,
+    title: "Comparatives + bağlaçlar",
+    titleTr: "Karşılaştırma, sıfat/zarf ve bağlaçlar",
+    rule: [
+      "Kısa sıfat: fast → faster → the fastest · Uzun sıfat: difficult → more difficult → the most difficult",
+      "Düzensiz: good → better → the best · bad → worse → the worst · Eşitlik: as fast as …",
+      "be + SIFAT (I'm efficient) · fiil + ZARF (-ly) (It works efficiently).",
+      "however (ancak) · although (-e rağmen) · therefore (bu yüzden) · whereas (oysa)",
+      "on the other hand (öte yandan) · despite + isim · unless (-mezse)",
+    ],
+    examples: [
+      { en: "Python is easier than C++.", tr: "Python, C++'tan daha kolaydır." },
+      { en: "This is the most difficult part of the project.", tr: "Bu, projenin en zor kısmı." },
+      { en: "Although I was tired, I finished the task.", tr: "Yorgun olmama rağmen görevi bitirdim." },
+    ],
+    watchOut: "“I'm efficiently” ✗ → “I'm efficient” ✓ · “works efficient” ✗ → “works efficiently” ✓",
+  },
+  [
+    tr("Python, C++'tan daha kolaydır.", "Python is easier than C++.", "Kısa sıfat (easy) → easier than; y → i.", "comparatives"),
+    tr("Bu, projenin en zor kısmı.", "This is the (most difficult|hardest) part of the project.", "Uzun sıfat: the most difficult.", "comparatives"),
+    tr("Yeni sürüm eskisinden çok daha hızlı.", "The new version is much faster than the old (one|version).", "fast → faster; 'çok daha' = much + comparative.", "comparatives"),
+    tr("Benim İngilizcem senin kadar iyi değil.", "My English is(n't| not) as good as yours.", "Eşitlik: (not) as … as.", "comparatives"),
+    tr("Bu, şimdiye kadar yazdığım en iyi kod.", "This is the best code (I've|I have) ever written.", "good → the best; ever + Present Perfect.", "comparatives"),
+    tr("Çok verimliyim.", "(I'm|I am) very efficient.", "be + sıfat: I'm efficient (efficiently değil).", "adverb-adjective"),
+    tr("Bu kod çok verimli çalışıyor.", "This code (works|runs) very efficiently.", "Fiili niteleyen zarf -ly: works efficiently.", "adverb-adjective"),
+    tr("Yorgun olmama rağmen görevi bitirdim.", ["Although I was tired[,] I finished the task.", "I finished the task although I was tired.", "Even though I was tired[,] I finished the task."], "although + cümle (özne + fiil).", "comparatives"),
+    tr("Uzaktan çalışma esnektir. Öte yandan, yalnız hissettirebilir.", "Remote work is flexible. On the other hand[,] it can (be lonely|feel lonely|make you feel lonely).", "on the other hand = öte yandan.", "comparatives"),
+    fill("This laptop is ___ (cheap) than that one.", "cheaper", "Kısa sıfat + -er: cheaper.", "comparatives"),
+    fill("It was the ___ (bad) day of my life.", "worst", "bad → worse → the worst.", "comparatives"),
+    fill("She speaks English very ___ (fluent).", "fluently", "Fiil (speaks) + zarf: fluently.", "adverb-adjective"),
+    fill("The tests failed; ___, we didn't deploy the code.", ["therefore", "so"], "Sonuç bildiren bağlaç: therefore.", "comparatives"),
+    fill("___ the rain, we went to the office.", ["Despite", "In spite of"], "despite + isim (the rain).", "comparatives"),
+    fix("I'm efficiently at work.", "(I'm|I am) efficient at work.", "be + sıfat: efficient.", "adverb-adjective"),
+    fix("The program works efficient.", "The program works efficiently.", "Fiil + zarf: works efficiently.", "adverb-adjective"),
+    fix("Python is more easy than Java.", "Python is easier than Java.", "Kısa sıfat: easier (more easy değil).", "comparatives"),
+    fix("This is the most best solution.", "This is the best solution.", "best zaten en üstünlük; most eklenmez.", "comparatives"),
+    fix("Despite I was tired, I went to work.", ["Although I was tired[,] I went to work.", "Despite being tired[,] I went to work.", "Despite the fact that I was tired[,] I went to work."], "despite'tan sonra cümle gelmez; cümle için although.", "comparatives"),
+    order("Python okunması kolay, oysa C++ daha karmaşık.", "Python is easy to read whereas C++ is more complex.", "Cümle + whereas + cümle.", "word-order"),
+    order("Güncellemezsen uygulama çalışmaz.", "The app won't work unless you update it.", "unless = if … not.", "word-order"),
+    tr("Bu plan daha ucuz; ancak daha yavaş.", ["This plan is cheaper[;|.] However[,] it is slower.", "This plan is cheaper[,] but it is slower."], "however yeni cümleyi başlatır ve virgül alır.", "comparatives"),
+  ],
+);
