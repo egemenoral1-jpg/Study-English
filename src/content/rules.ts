@@ -32,6 +32,7 @@ import {
   NOUNISH_VERBS,
   pastForm,
   SAME_PP,
+  thirdPerson,
   VERBS_3S,
   VERBS_PAST,
   VERBS_PAST_REGULAR,
@@ -237,10 +238,7 @@ export const RULES: Rule[] = [
       ];
       return !blockers.includes(p);
     },
-    suggest: (_m, groups) => {
-      const v = groups[1].toLowerCase();
-      return v === "have" ? "has" : v === "do" ? "does" : v === "go" ? "goes" : /(s|sh|ch|x|z|o)$/.test(v) ? v + "es" : /[^aeiou]y$/.test(v) ? v.slice(0, -1) + "ies" : v + "s";
-    },
+    suggest: (t) => thirdPerson(t.toLowerCase()),
   },
   {
     id: "third-person-name",
@@ -260,6 +258,7 @@ export const RULES: Rule[] = [
       if (["i", "you", "we", "they", "people", "children", "men", "women", "parents", "friends"].includes(subj)) return false;
       return !/s$/.test(last) || /ss$/.test(last);
     },
+    suggest: (t) => thirdPerson(t.toLowerCase()),
   },
   {
     id: "third-person-noun",
@@ -273,6 +272,7 @@ export const RULES: Rule[] = [
     ),
     group: 1,
     when: (m, s) => !["is", "was", "are", "were", "has", "had", "will"].includes(nextWord(s, m.index + m[0].length)),
+    suggest: (t) => thirdPerson(t.toLowerCase()),
   },
   {
     id: "dont-plus-3s",

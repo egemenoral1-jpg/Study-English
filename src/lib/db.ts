@@ -39,6 +39,10 @@ export class StudyDB extends Dexie {
       readingAnswers: "++id, articleId, [articleId+questionId], ts",
       settings: "key",
     });
+    // v2: hata defterini zamana göre sıralamak için ts indeksi
+    this.version(2).stores({
+      mistakes: "++id, date, category, source, ts",
+    });
   }
 }
 
