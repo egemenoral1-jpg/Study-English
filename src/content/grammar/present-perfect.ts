@@ -1,0 +1,47 @@
+import { defineTopic, fill, fix, order, tr } from "./types";
+
+export default defineTopic(
+  {
+    id: "present-perfect",
+    order: 4,
+    title: "Present Perfect",
+    titleTr: "Deneyimler ve şimdiye kadar olanlar",
+    rule: [
+      "Kalıp: have / has + fiilin 3. hâli → I have learned · She has finished.",
+      "Hayat deneyimi (ne zaman olduğu önemli değil) ve sonucu şimdiyi etkileyen olaylar.",
+      "ever / never / already / yet / just / so far sık kullanılır.",
+      "Zaman belliyse (yesterday, last year) Past Simple: I finished it yesterday.",
+      "He / she / it ile has: She has gone. Olumsuz: haven't / hasn't + 3. hâl.",
+    ],
+    examples: [
+      { en: "I have learned 100 new words so far.", tr: "Şimdiye kadar 100 yeni kelime öğrendim." },
+      { en: "Have you ever worked abroad?", tr: "Hiç yurt dışında çalıştın mı?" },
+      { en: "She hasn't finished her assignment yet.", tr: "Ödevini henüz bitirmedi." },
+    ],
+    watchOut: "have / has'ten sonra fiilin 3. hâli gelir (have went ✗ → have gone ✓).",
+  },
+  [
+    tr("Şimdiye kadar 100 yeni kelime öğrendim.", ["(I've|I have) learned 100 new words so far.", "So far[,] (I've|I have) learned 100 new words.", "(I've|I have) learnt 100 new words so far."], "so far → Present Perfect: have + learned.", "present-perfect"),
+    tr("Hiç yurt dışında çalıştın mı?", "Have you ever worked abroad?", "Deneyim sorusu: Have you ever + 3. hâl? 'yurt dışında' = abroad (in yok).", "present-perfect"),
+    tr("Ödevimi henüz bitirmedim.", "(I haven't|I have not) finished my (assignment|homework) yet.", "Olumsuz + yet: haven't + finished … yet.", "present-perfect"),
+    tr("Bugünkü görevleri zaten bitirdim.", ["(I've|I have) already (finished|completed|done) (today's tasks|the tasks for today).", "(I've|I have) (finished|completed|done) (today's tasks|the tasks for today) already."], "already → have + 3. hâl.", "present-perfect"),
+    tr("Bu filmi hiç izlemedim.", ["(I've|I have) never (seen|watched) this (film|movie).", "(I haven't|I have not) ever (seen|watched) this (film|movie)."], "never + 3. hâl: I've never seen …", "present-perfect"),
+    tr("O (kadın) yeni bir iş buldu.", "(She's|She has) found a new job.", "She → has + found (find → found).", "present-perfect"),
+    tr("Sertifikamı az önce aldım.", "(I've|I have) just (received|got|gotten) my certificate.", "just = az önce; have + just + 3. hâl.", "present-perfect"),
+    fill("I ___ (be) to London twice.", ["have been", "'ve been"], "Deneyim: have been (bir yere gidip gelmek).", "present-perfect"),
+    fill("She ___ (not / reply) to my email yet.", ["hasn't replied", "has not replied"], "She → hasn't + replied.", "present-perfect"),
+    fill("___ you ever tried sushi?", "Have", "Present Perfect sorusu: Have you ever …?", "present-perfect"),
+    fill("We ___ (finish) the project last week.", "finished", "last week → zaman belli → Past Simple.", "past-tense"),
+    fill("He has ___ (write) three articles this month.", "written", "write → wrote → written (3. hâl).", "present-perfect"),
+    fix("I have went to Istanbul many times.", "(I've|I have) been to Istanbul many times.", "go'nun 3. hâli gone; deneyimde 'been to' kullanılır.", "present-perfect"),
+    fix("She have finished her work.", "(She's|She has) finished her work.", "She ile have değil has.", "present-perfect"),
+    fix("I have finished it yesterday.", "I finished it yesterday.", "yesterday zamanı belli eder → Past Simple.", "past-tense"),
+    fix("Did you ever been abroad?", "Have you ever been abroad?", "Deneyim sorusu: Have you ever been …?", "present-perfect"),
+    fix("I didn't finished yet.", "(I haven't|I have not) finished yet.", "yet → Present Perfect: haven't finished.", "present-perfect"),
+    order("Bu yıl çok şey öğrendim.", "I have learned a lot this year.", "Özne + have + 3. hâl + nesne + zaman.", "word-order"),
+    order("Raporu gönderdin mi?", "Have you sent the report yet?", "Soru: Have + you + 3. hâl + nesne + yet?", "word-order"),
+    tr("Bu yıl üç tane proje tamamladım.", "(I've|I have) completed (three|3) projects this year.", "this year (bitmemiş zaman) → Present Perfect.", "present-perfect"),
+    tr("Hiç büyük bir hata yaptın mı?", "Have you ever made a (big|huge) mistake?", "make → made; 'hata yapmak' = make a mistake.", "present-perfect"),
+    tr("Bu kitabı henüz okumadım ama okuyacağım.", "(I haven't|I have not) read this book yet[,] but I (will|'ll|am going to|'m going to)[ read it].", "read'in 3. hâli read (okunuşu 'red').", "present-perfect"),
+  ],
+);
