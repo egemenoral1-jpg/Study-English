@@ -42,6 +42,6 @@ export default defineTopic(
     order("Raporu gönderdin mi?", "Have you sent the report yet?", "Soru: Have + you + 3. hâl + nesne + yet?", "word-order"),
     tr("Bu yıl üç tane proje tamamladım.", "(I've|I have) completed (three|3) projects this year.", "this year (bitmemiş zaman) → Present Perfect.", "present-perfect"),
     tr("Hiç büyük bir hata yaptın mı?", "Have you ever made a (big|huge) mistake?", "make → made; 'hata yapmak' = make a mistake.", "present-perfect"),
-    tr("Bu kitabı henüz okumadım ama okuyacağım.", "(I haven't|I have not) read this book yet[,] but I (will|'ll|am going to|'m going to)[ read it].", "read'in 3. hâli read (okunuşu 'red').", "present-perfect"),
+    tr("Bu kitabı henüz okumadım ama okuyacağım.", "(I haven't|I have not) read this book yet[,] but (I'll|I'm going to)[ read it].", "read'in 3. hâli read (okunuşu 'red').", "present-perfect"),
   ],
 );

@@ -1,0 +1,47 @@
+import { defineTopic, fill, fix, order, tr } from "./types";
+
+export default defineTopic(
+  {
+    id: "present-perfect-continuous",
+    order: 5,
+    title: "Present Perfect Continuous + for / since",
+    titleTr: "“-den beri / -dır … yapıyorum”",
+    rule: [
+      "Kalıp: have / has been + fiil-ing → I've been coding for two hours.",
+      "for + süre: for an hour, for three days, for two years.",
+      "since + başlangıç anı: since Monday, since 2022, since I graduated.",
+      "Eylem yoksa sadece have been: I've been sick for three days.",
+      "Kontrol sorusu: “have been'den sonra fiil var mı? Varsa -ing aldı mı?”",
+    ],
+    examples: [
+      { en: "I've been learning English for six months.", tr: "Altı aydır İngilizce öğreniyorum." },
+      { en: "She has been working here since 2022.", tr: "2022'den beri burada çalışıyor." },
+      { en: "I've been here since 9 a.m.", tr: "Sabah 9'dan beri buradayım." },
+    ],
+    watchOut: "“I have been work” ✗ → “I have been working” ✓ · “since two years” ✗ → “for two years” ✓",
+  },
+  [
+    tr("Altı aydır İngilizce öğreniyorum.", "(I've|I have) been (learning|studying) English for (six|6) months.", "have been + -ing; süre (altı ay) → for.", "perfect-continuous"),
+    tr("2022'den beri burada çalışıyorum.", "(I've|I have) been working here since 2022.", "Başlangıç yılı → since.", "perfect-continuous"),
+    tr("Üç saattir bu hatayı düzeltmeye çalışıyorum.", "(I've|I have) been trying to fix this (bug|error) for (three|3) hours.", "have been trying (-ing); üç saat süre → for.", "perfect-continuous"),
+    tr("Pazartesiden beri yeni bir özellik üzerinde çalışıyoruz.", "(We've|We have) been working on a new feature since Monday.", "work on (edat!) + since Monday (başlangıç günü).", "perfect-continuous"),
+    tr("Üç gündür hastayım.", "(I've|I have) been (sick|ill) for (three|3) days.", "Eylem yok → have been + sıfat. Süre → for.", "perfect-continuous"),
+    tr("Mezun olduğumdan beri iş arıyorum.", "(I've|I have) been looking for a (job|position) since I graduated.", "look for (for unutma) + since I graduated.", "perfect-continuous"),
+    tr("Ne zamandır kod yazıyorsun?", "How long have you been (coding|writing code|programming)?", "Süre sorusu: How long have you been + -ing?", "perfect-continuous"),
+    fill("I've been waiting ___ 20 minutes.", "for", "20 dakika bir süre → for.", "perfect-continuous"),
+    fill("She has been living in Ankara ___ 2019.", "since", "2019 bir başlangıç noktası → since.", "perfect-continuous"),
+    fill("We have been ___ (use) this tool for a year.", "using", "have been'den sonra fiil -ing alır: using.", "perfect-continuous"),
+    fill("It ___ (rain) since this morning.", ["has been raining", "'s been raining"], "It → has been + -ing.", "perfect-continuous"),
+    fill("I've been tired ___ last week.", "since", "last week bir başlangıç → since.", "perfect-continuous"),
+    fix("I have been work here for two years.", "(I've|I have) been working here for (two|2) years.", "have been'den sonra fiil -ing almalı: working.", "perfect-continuous"),
+    fix("I've been learning English since two years.", "(I've|I have) been learning English for (two|2) years.", "two years bir süre → for (since değil).", "perfect-continuous"),
+    fix("She been working on this since Monday.", "(She's|She has) been working on this since Monday.", "has eksik: She has been working …", "perfect-continuous"),
+    fix("I am working here since 2021.", "(I've|I have) been working here since 2021.", "since ile Present Continuous değil Present Perfect Continuous kullanılır.", "perfect-continuous"),
+    fix("We have been tried to solve it for hours.", "(We've|We have) been trying to solve it for hours.", "have been + trying (-ing).", "perfect-continuous"),
+    order("İki saattir kod yazıyorum.", "I have been coding for two hours.", "Özne + have been + -ing + for + süre.", "word-order"),
+    order("Sabahtan beri ne yapıyorsun?", "What have you been doing since this morning?", "Soru: What + have + you + been + -ing + since …?", "word-order"),
+    tr("Bir haftadır bu kitabı okuyorum.", "(I've|I have) been reading this book for (a|one|1) week.", "for a week; reading (-ing).", "perfect-continuous"),
+    tr("Kullanıcı sayısı Ocak'tan beri artıyor.", "The number of users has been (increasing|growing|rising) since January.", "The number = it → has been + -ing; Ocak (başlangıç) → since.", "perfect-continuous"),
+    tr("Sabah 9'dan beri ofisteyim.", "(I've|I have) been (in|at) the office since 9[ a.m.| this morning| o'clock].", "Eylem yok → have been. Saat başlangıç → since.", "perfect-continuous"),
+  ],
+);
