@@ -1,0 +1,47 @@
+import { defineTopic, fill, fix, order, tr } from "./types";
+
+export default defineTopic(
+  {
+    id: "present-continuous",
+    order: 2,
+    title: "Present Continuous",
+    titleTr: "Şimdiki zaman: şu an ve bu aralar",
+    rule: [
+      "Şu an olan ya da bu aralar devam eden işler için kullanılır.",
+      "Kalıp: am / is / are + fiil-ing → I'm working. She's studying.",
+      "-ing'li fiilin önünde MUTLAKA am / is / are olur: I working ✗ → I'm working ✓",
+      "İpucu kelimeler: now, right now, at the moment, these days, currently.",
+      "every day, usually gibi alışkanlık kelimeleriyle Present Simple kullanılır.",
+    ],
+    examples: [
+      { en: "I'm working on a new project these days.", tr: "Bu aralar yeni bir proje üzerinde çalışıyorum." },
+      { en: "She's studying for her exam right now.", tr: "Şu an sınavına çalışıyor." },
+      { en: "We aren't using React at the moment.", tr: "Şu anda React kullanmıyoruz." },
+    ],
+    watchOut: "“I trying”, “I working” diye bir yapı yok. Önce am / is / are, sonra -ing.",
+  },
+  [
+    tr("Bu aralar yeni bir proje üzerinde çalışıyorum.", "(I'm|I am) working on a new project (these days|at the moment|nowadays).", "am + working; 'üzerinde çalışmak' = work on.", "be-ing"),
+    tr("Şu an bu hatayı düzeltmeye çalışıyorum.", "(I'm|I am) trying to fix this (bug|error) (right now|now|at the moment).", "I trying ✗ → I'm trying ✓", "be-ing"),
+    tr("O (kadın) şu an bir toplantıda.", "She is in a meeting (right now|now|at the moment).", "Burada fiil yok; 'be' fiili gerekir: She is in a meeting.", "missing-verb"),
+    tr("Şu anda ne yapıyorsun?", "What are you doing (right now|now|at the moment)?", "Soru: Wh- + are + you + -ing?", "be-ing"),
+    tr("Bu aralar çok kitap okumuyorum.", "(I'm not|I am not) reading (many|a lot of) books (these days|nowadays).", "Olumsuz: am not + -ing.", "be-ing"),
+    tr("Ekibimiz şu an yeni bir özellik geliştiriyor.", "Our team is (developing|building) a new feature (right now|now|at the moment).", "Our team = it → is + -ing.", "be-ing"),
+    fill("Look! It ___ (rain).", "is raining", "Şu an olan bir şey: is + -ing.", "be-ing"),
+    fill("I ___ (learn) English these days.", ["am learning", "'m learning"], "these days → Present Continuous: am learning.", "be-ing"),
+    fill("They ___ (not / work) today.", ["aren't working", "are not working"], "They ile olumsuz: aren't + -ing.", "be-ing"),
+    fill("___ you listening to me?", "Are", "You ile soru: Are you + -ing?", "be-ing"),
+    fill("He usually ___ (drive) to work, but today he is taking the bus.", "drives", "usually → alışkanlık → Present Simple (drives).", "third-person-s"),
+    fix("I working from home today.", "(I'm|I am) working from home today.", "-ing'den önce am gerekir.", "be-ing"),
+    fix("She studying for her exam now.", "(She's|She is) studying for her exam (now|right now).", "She + is + studying.", "be-ing"),
+    fix("We are work on the backend right now.", "We are working on the backend (right now|now).", "are'dan sonra fiil -ing almalı: are working.", "be-ing"),
+    fix("I am drink coffee now.", ["(I'm|I am) drinking coffee (now|right now).", "I drink coffee now."], "am + drinking (are/is/am'dan sonra yalın fiil gelmez).", "be-with-verb"),
+    fix("He is work on the project these days.", "(He's|He is) working on the project (these days|nowadays).", "is + working on.", "be-ing"),
+    order("Şu an bir e-posta yazıyorum.", "I am writing an email right now.", "Özne + am + -ing + nesne + zaman.", "word-order"),
+    order("Neden gülüyorsun?", "Why are you laughing?", "Soru sırası: Why + are + you + -ing?", "word-order"),
+    tr("Her gün kod yazarım ama bugün dinleniyorum.", "I (write|code) (code |)every day[,] but today (I'm|I am) (resting|relaxing|taking a break).", "Alışkanlık → Simple (I write); bugün → Continuous (I'm resting).", "be-ing"),
+    tr("Şu an iş arıyorum.", "(I'm|I am) looking for a job (right now|now|at the moment).", "Aramak = look for (for unutulmamalı) ve am + -ing.", "prepositions"),
+    tr("Kardeşim şu an uyuyor.", "My (brother|sister) is sleeping (right now|now|at the moment).", "My brother = he → is + sleeping.", "be-ing"),
+    tr("Bu aralar uzaktan çalışıyoruz.", "(We're|We are) working remotely (these days|nowadays|at the moment).", "We + are + working. Fiili niteleyen zarf: remotely.", "be-ing"),
+  ],
+);
