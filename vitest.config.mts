@@ -1,8 +1,8 @@
 import { defineConfig } from "vitest/config";
-import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 // Birim testleri: aralıklı tekrar algoritması, kural motoru, cevap kontrolü.
 export default defineConfig({
-  resolve: { alias: { "@": path.resolve(__dirname, "src") } },
+  resolve: { alias: { "@": fileURLToPath(new URL("./src", import.meta.url)) } },
   test: { include: ["src/**/*.test.ts"], environment: "node" },
 });
