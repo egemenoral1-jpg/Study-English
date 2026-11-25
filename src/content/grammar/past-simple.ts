@@ -1,0 +1,47 @@
+import { defineTopic, fill, fix, order, tr } from "./types";
+
+export default defineTopic(
+  {
+    id: "past-simple",
+    order: 3,
+    title: "Past Simple + düzensiz fiiller",
+    titleTr: "Geçmiş zaman: bitmiş olaylar",
+    rule: [
+      "Geçmişte başlayıp bitmiş olaylar: I worked · I went.",
+      "Düzenli fiil + -ed (work → worked); düzensizler ezberlenir (go → went, take → took).",
+      "Olumsuz ve soru: didn't / Did + YALIN fiil → I didn't go ✓ (didn't went ✗)",
+      "yesterday, last night, last week, two days ago → fiil mutlaka geçmiş zamana döner.",
+      "used to + yalın fiil = eskiden yapardım: I used to live in Edirne.",
+    ],
+    examples: [
+      { en: "I fixed the bug yesterday.", tr: "Hatayı dün düzelttim." },
+      { en: "We didn't go to the office last week.", tr: "Geçen hafta ofise gitmedik." },
+      { en: "I used to drink tea, but now I drink coffee.", tr: "Eskiden çay içerdim ama şimdi kahve içiyorum." },
+    ],
+    watchOut: "“yesterday” gördüğünde fiili kontrol et. didn't'ten sonra fiil yalın kalır.",
+  },
+  [
+    tr("Dün hatayı düzelttim.", ["I fixed the (bug|error) yesterday.", "Yesterday[,] I fixed the (bug|error)."], "yesterday → geçmiş zaman: fix → fixed.", "past-tense"),
+    tr("Geçen hafta ofise gitmedim.", ["I (didn't|did not) go to the office last week.", "Last week[,] I (didn't|did not) go to the office."], "didn't + yalın fiil (go). went değil.", "past-tense"),
+    tr("Dün gece geç uyudum.", ["I (went to bed|slept) late last night.", "Last night[,] I (went to bed|slept) late."], "last night → geçmiş: went / slept.", "past-tense"),
+    tr("İki gün önce yeni bir laptop aldım.", "I bought a new laptop two days ago.", "buy düzensiz: bought. 'önce' = ago, sona gelir.", "past-tense"),
+    tr("Toplantıya geç kaldın mı?", "Were you late for the meeting?", "Fiil yok, 'be' fiili var: Were you late …?", "past-tense"),
+    tr("Mülakattan önce çok gergindim.", "I was very nervous before the interview.", "Duygu bildiren sıfat için be: I was nervous.", "missing-verb"),
+    tr("Eskiden Edirne'de yaşardım.", "I used to live in Edirne.", "used to + yalın fiil = eskiden …rdım.", "past-tense"),
+    fill("I ___ (see) a great video about Git yesterday.", "saw", "see düzensiz: see → saw.", "past-tense"),
+    fill("She ___ (not / call) me last night.", ["didn't call", "did not call"], "didn't + yalın fiil: didn't call.", "past-tense"),
+    fill("___ you finish the task yesterday?", "Did", "Geçmiş zaman sorusu: Did + özne + yalın fiil.", "past-tense"),
+    fill("We ___ (take) a taxi because it was late.", "took", "take düzensiz: take → took.", "past-tense"),
+    fill("I ___ (feel) relieved when the tests passed.", "felt", "feel düzensiz: feel → felt.", "past-tense"),
+    fix("I didn't went to work yesterday.", "I (didn't|did not) go to work yesterday.", "didn't'ten sonra fiil yalın: go.", "past-tense"),
+    fix("Yesterday I go to the cinema.", ["Yesterday[,] I went to the cinema.", "I went to the cinema yesterday."], "yesterday varsa fiil geçmiş zaman olmalı: went.", "past-tense"),
+    fix("I don't call her last night.", "I (didn't|did not) call her last night.", "Geçmiş zamanda don't değil didn't kullanılır.", "past-tense"),
+    fix("Did you saw my message?", "Did you see my message?", "Did ile soru sorunca fiil yalın kalır: see.", "past-tense"),
+    fix("She is finished the project last week.", "She finished the project last week.", "Geçmiş zaman fiili zaten var; is eklenmez.", "be-with-verb"),
+    order("Geçen yıl üniversiteden mezun oldum.", "I graduated from university last year.", "Özne + fiil + nesne + zaman (last year sona).", "word-order"),
+    order("Sunucu dün gece neden çöktü?", "Why did the server crash last night?", "Soru: Why + did + özne + yalın fiil + zaman.", "word-order"),
+    tr("Kodu dün akşam canlıya aldık.", ["We deployed the code (yesterday evening|last night).", "(Yesterday evening|Last night)[,] we deployed the code."], "deploy düzenli: deployed.", "past-tense"),
+    tr("Ne zaman fark ettin?", "When did you (realize|realise|notice)?", "Soru: When + did + you + yalın fiil.", "past-tense"),
+    tr("Eskiden kahve içmezdim.", "I (didn't|did not) use to drink coffee.", "Olumsuz used to: didn't use to (used değil) + yalın fiil.", "past-tense"),
+  ],
+);
