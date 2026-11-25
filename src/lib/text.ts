@@ -30,14 +30,25 @@ const SYNONYM_SPELLINGS: [RegExp, string][] = [
   [/\bgonna\b/g, "going to"],
   [/\bwanna\b/g, "want to"],
   [/\bok\b/g, "okay"],
+  [/\bper cent\b/g, "percent"],
 ];
+
+/** Sayı kelimeleri rakama çevrilir: "seven" = "7" (iki taraf da aynı şekilde çevrilir). */
+const NUMBER_WORDS: Record<string, string> = {
+  zero: "0", one: "1", two: "2", three: "3", four: "4", five: "5", six: "6", seven: "7", eight: "8",
+  nine: "9", ten: "10", eleven: "11", twelve: "12", fifteen: "15", twenty: "20", thirty: "30", fifty: "50", hundred: "100",
+};
 
 export function normalize(input: string): string {
   let s = input
     .toLowerCase()
-    .replace(/[‘’`´]/g, "'") // kıvrık kesme işaretleri → düz
-    .replace(/[“”]/g, '"')
-    .replace(/ /g, " ");
+    .replace(/[\u2018\u2019\u0060\u00b4]/g, "'") // kıvrık kesme işaretleri → düz
+    .replace(/[\u201c\u201d]/g, '"')
+    .replace(/\u00a0/g, " ")
+    // saatler: "7 a.m." = "7am" = "7 am"
+    .replace(/\b([ap])\.\s?m\b\.?/g, "$1m")
+    .replace(/(\d)\s?([ap]m)\b/g, "$1 $2")
+    .replace(/(\d):00\b/g, "$1");
   for (const [re, rep] of CONTRACTIONS) s = s.replace(re, rep);
   s = s
     .replace(/[^a-z0-9'çğıöşüâî\s-]/gi, " ") // noktalama → boşluk (kesme ve tire kalsın)
@@ -46,7 +57,72 @@ export function normalize(input: string): string {
     .replace(/\s+/g, " ")
     .trim();
   for (const [re, rep] of SYNONYM_SPELLINGS) s = s.replace(re, rep);
+  s = s
+    .split(" ")
+    .map((w) => NUMBER_WORDS[w] ?? w)
+    .join(" ");
   return s;
+}
+
+// ─────────────────────────── Cevap kalıpları ───────────────────────────
+
+/**
+ * Kısa cevap kalıbını tüm olası cümlelere açar. İçerik yazarken çok işe yarar:
+ *   "(I've|I have) been working here [for two years]"
+ *   → "I've been working here for two years", "I've been working here",
+ *     "I have been working here for two years", "I have been working here"
+ *
+ *  (a|b|c)  → seçeneklerden biri
+ *  [x]      → isteğe bağlı kısım
+ *  İç içe kullanım desteklenir: "[(very|really) ]good"
+ */
+export function expandPattern(pattern: string): string[] {
+  let pos = 0;
+
+  // sequence := (literal | group | optional)*  — `stop` karakterlerinden birinde durur
+  function parseSequence(stop: string): string[] {
+    let results = [""];
+    while (pos < pattern.length && !stop.includes(pattern[pos])) {
+      const ch = pattern[pos];
+      let parts: string[];
+      if (ch === "(") {
+        pos++;
+        parts = parseAlternatives(")");
+        pos++; // ")"
+      } else if (ch === "[") {
+        pos++;
+        parts = [...parseAlternatives("]"), ""];
+        pos++; // "]"
+      } else {
+        let lit = "";
+        while (pos < pattern.length && !"()[]|".includes(pattern[pos]) && !stop.includes(pattern[pos])) lit += pattern[pos++];
+        parts = [lit];
+      }
+      const next: string[] = [];
+      for (const r of results) for (const p of parts) next.push(r + p);
+      results = next;
+    }
+    return results;
+  }
+
+  function parseAlternatives(close: string): string[] {
+    const out = [...parseSequence("|" + close)];
+    while (pattern[pos] === "|") {
+      pos++;
+      out.push(...parseSequence("|" + close));
+    }
+    return out;
+  }
+
+  const all = parseAlternatives("");
+  // Fazla boşlukları ve noktalama öncesi boşlukları temizle
+  const cleaned = all.map((s) => s.replace(/\s+/g, " ").replace(/\s+([.,!?;:])/g, "$1").trim());
+  return Array.from(new Set(cleaned));
+}
+
+/** Birden çok kalıbı açar. */
+export function expandAll(patterns: string[]): string[] {
+  return Array.from(new Set(patterns.flatMap(expandPattern)));
 }
 
 /** Normalize edilmiş metni kelimelere ayırır. */

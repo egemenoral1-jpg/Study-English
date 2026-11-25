@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { charDiff, checkAnswer, checkWord, diffSeq, levenshtein, normalize, tokenize } from "./text";
+import { charDiff, checkAnswer, checkWord, diffSeq, expandPattern, levenshtein, normalize, tokenize } from "./text";
 
 describe("normalize", () => {
   it("büyük/küçük harf, noktalama ve fazla boşlukları temizler", () => {
@@ -63,5 +63,27 @@ describe("kelime kartı kontrolü", () => {
   it("charDiff harf harf fark üretir", () => {
     const ops = charDiff("coffe", "coffee");
     expect(ops.filter((o) => o.type === "missing").map((o) => o.value)).toEqual(["e"]);
+  });
+});
+
+describe("saat ve sayı eşitleme", () => {
+  it("7 a.m. = 7am = seven am", () => {
+    expect(normalize("at 7 a.m.")).toBe(normalize("at 7am"));
+    expect(normalize("at seven a.m.")).toBe(normalize("at 7 am"));
+    expect(normalize("at 8:00")).toBe(normalize("at 8"));
+  });
+});
+
+describe("expandPattern", () => {
+  it("seçenek ve isteğe bağlı kısımları açar", () => {
+    expect(expandPattern("(I've|I have) been here[ for two years].").sort()).toEqual(
+      ["I have been here for two years.", "I have been here.", "I've been here for two years.", "I've been here."].sort(),
+    );
+  });
+  it("iç içe kalıplar", () => {
+    expect(expandPattern("It is [(very|really) ]good").sort()).toEqual(["It is good", "It is really good", "It is very good"].sort());
+  });
+  it("kalıpsız metni olduğu gibi döndürür", () => {
+    expect(expandPattern("He works from home.")).toEqual(["He works from home."]);
   });
 });
