@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { db, ensureSeeded, getSettings } from "@/lib/db";
 import { buildQueue, type Quality } from "@/lib/srs";
@@ -29,6 +29,8 @@ export function StudySession() {
   const [index, setIndex] = useState(0);
   const [extraNew, setExtraNew] = useState(0);
   const [stats, setStats] = useState({ reviewed: 0, correct: 0, again: 0 });
+  /** Hızlı tuş basışlarında aynı kartın iki kez puanlanmasını önler */
+  const busy = useRef(false);
 
   // Oturum kuyruğunu oluştur
   useEffect(() => {
@@ -52,7 +54,8 @@ export function StudySession() {
 
   const handleDone = useCallback(
     async (q: Quality, typo?: { typed: string; correct: string }) => {
-      if (!queue) return;
+      if (!queue || busy.current) return;
+      busy.current = true;
       const item = queue[index];
       const updated = await applyReview(item.word, q);
       if (typo) await logSpellingSlip(typo.typed, typo.correct);
@@ -62,6 +65,7 @@ export function StudySession() {
         setQueue((prev) => [...(prev ?? []), { word: updated, type: "en-tr", key: `${updated.id}-r${Date.now()}` }]);
       }
       setIndex((i) => i + 1);
+      busy.current = false;
     },
     [queue, index],
   );
