@@ -1,0 +1,47 @@
+import { defineTopic, fill, fix, order, tr } from "./types";
+
+export default defineTopic(
+  {
+    id: "modals",
+    order: 7,
+    title: "Modal fiiller + kibar rica",
+    titleTr: "can, could, should, must, have to",
+    rule: [
+      "can / could → yetenek ve rica: I can build web apps. · Could you repeat that?",
+      "should → tavsiye · must → güçlü zorunluluk · have to → dış zorunluluk.",
+      "Modal'dan sonra fiil YALIN: She can speak (✗ speaks) · You should try (✗ to try).",
+      "Modal'lar he/she/it ile -s almaz: He can ✓ (He cans ✗). (have to → he has to)",
+      "Kibar: Could you …? · Would you mind + -ing? · I'd like to … · Could I ask …?",
+    ],
+    examples: [
+      { en: "I can build web apps with React.", tr: "React ile web uygulamaları yapabilirim." },
+      { en: "You should mention your projects in your CV.", tr: "Özgeçmişinde projelerinden bahsetmelisin." },
+      { en: "Could you speak more slowly, please?", tr: "Daha yavaş konuşabilir misiniz, lütfen?" },
+    ],
+    watchOut: "Modal + yalın fiil: can speak, should try, must finish. Araya to girmez.",
+  },
+  [
+    tr("React ile web uygulamaları yapabilirim.", "I can (build|make|develop|create) web (apps|applications) with React.", "can + yalın fiil.", "modals"),
+    tr("Daha yavaş konuşabilir misiniz, lütfen?", ["(Could|Can) you speak more slowly[,] please?", "(Could|Can) you please speak more slowly?"], "Kibar rica: Could you + yalın fiil? 'Yavaş' fiili nitelediği için slowly.", "modals"),
+    tr("Özgeçmişinde projelerinden bahsetmelisin.", "You should mention your projects in your (CV|resume|résumé).", "Tavsiye: should + yalın fiil (mention).", "modals"),
+    tr("Bunu bugün bitirmek zorundayım.", ["I have to finish this today.", "I must finish this today.", "I need to finish this today."], "Zorunluluk: have to / must + yalın fiil.", "modals"),
+    tr("Bir soru sorabilir miyim?", "(Could|Can|May) I ask (you |)a question?", "İzin: Could I + yalın fiil?", "modals"),
+    tr("Pencereyi açar mısınız? (Would you mind)", "Would you mind opening the window?", "Would you mind + fiil-ing.", "modals"),
+    tr("Bu pozisyon için başvurmak istiyorum.", "(I'd|I would) like to apply for this position.", "I'd like to + yalın fiil; apply for.", "prepositions"),
+    fill("She ___ (can / speak) three languages.", "can speak", "can + yalın fiil: can speak (speaks değil).", "modals"),
+    fill("You ___ (should / not) eat so much sugar.", ["shouldn't", "should not"], "Olumsuz tavsiye: shouldn't + yalın fiil.", "modals"),
+    fill("He ___ (have to) wear a suit at work.", "has to", "He ile have to → has to.", "modals"),
+    fill("Would you mind ___ (close) the door?", "closing", "Would you mind + -ing.", "modals"),
+    fill("You ___ (must / not) share your password with anyone.", ["mustn't", "must not"], "Yasak: mustn't + yalın fiil.", "modals"),
+    fix("She can speaks English very well.", "She can speak English very well.", "Modal'dan sonra fiil yalın: speak.", "modals"),
+    fix("You should to try this tool.", "You should try this tool.", "should'dan sonra to gelmez.", "modals"),
+    fix("He musts finish the report.", ["He must finish the report.", "He has to finish the report."], "Modal'lar -s almaz: must.", "modals"),
+    fix("Can you to help me?", "(Can|Could) you help me?", "can'den sonra to gelmez.", "modals"),
+    fix("I don't can come tomorrow.", ["I (can't|cannot) come tomorrow.", "I (won't|will not) be able to come tomorrow."], "can'in olumsuzu can't / cannot (don't can ✗).", "modals"),
+    order("Toplantının saatini onaylayabilir misiniz?", "Could you confirm the time of the meeting?", "Could + you + yalın fiil + nesne?", "word-order"),
+    order("Maaşını pazarlık etmelisin.", "You should negotiate your salary.", "Özne + should + yalın fiil + nesne.", "word-order"),
+    tr("Ne yapmalıyım?", "What should I do?", "Tavsiye sorusu: What should I + yalın fiil?", "modals"),
+    tr("Gereksinimleri netleştirebilir misiniz, lütfen?", ["(Could|Can) you clarify the requirements[,] please?", "(Could|Can) you please clarify the requirements?"], "Could you + clarify (yalın).", "modals"),
+    tr("Yarın erken kalkmak zorunda değilim.", "I (don't|do not) have to (get up|wake up) early tomorrow.", "Zorunlu değil: don't have to (mustn't = yasak, farklı anlam!).", "modals"),
+  ],
+);
