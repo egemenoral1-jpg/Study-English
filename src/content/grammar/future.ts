@@ -1,0 +1,47 @@
+import { defineTopic, fill, fix, order, tr } from "./types";
+
+export default defineTopic(
+  {
+    id: "future",
+    order: 6,
+    title: "Future: will / be going to",
+    titleTr: "Gelecek: plan, tahmin ve kararlar",
+    rule: [
+      "will + yalın fiil → o an verilen karar, tahmin, söz: I'll help you.",
+      "be going to + yalın fiil → önceden planlanmış niyet: I'm going to learn AI.",
+      "Present Continuous → takvimde belli plan: I'm meeting my friends tomorrow.",
+      "Olumsuz: won't (= will not) · I'm not going to …",
+      "Olasılık: I'll probably … · I'll definitely … · It's likely that …",
+    ],
+    examples: [
+      { en: "I'll send you the report tomorrow.", tr: "Raporu sana yarın göndereceğim." },
+      { en: "I'm going to apply for remote jobs next year.", tr: "Seneye uzaktan çalışma işlerine başvuracağım." },
+      { en: "It will probably rain this afternoon.", tr: "Bu öğleden sonra muhtemelen yağmur yağacak." },
+    ],
+    watchOut: "will'den sonra fiil yalın kalır (will goes ✗) ve going to'dan önce am/is/are gerekir.",
+  },
+  [
+    tr("Raporu sana yarın göndereceğim.", ["(I'll|I will|I'm going to) send you the report tomorrow.", "(I'll|I will|I'm going to) send the report to you tomorrow."], "Söz/karar → will + yalın fiil.", "future"),
+    tr("Seneye uzaktan çalışma işlerine başvuracağım.", ["(I'm|I am) going to apply for remote jobs next year.", "(I'll|I will) apply for remote jobs next year.", "Next year[,] (I'm going to|I'll) apply for remote jobs."], "Plan → be going to + apply for (for unutma).", "future"),
+    tr("Bu öğleden sonra muhtemelen yağmur yağacak.", "(It will|It'll) probably rain this afternoon.", "Tahmin → will; probably will'den sonra gelir.", "future"),
+    tr("Yarın arkadaşlarımla buluşuyorum.", ["(I'm|I am) meeting (with |)my friends tomorrow.", "(I'm|I am) going to meet (with |)my friends tomorrow."], "Takvimde belli plan → Present Continuous.", "future"),
+    tr("Pes etmeyeceğim.", "(I won't|I will not|I'm not going to) give up.", "Olumsuz söz: won't + yalın fiil.", "future"),
+    tr("Merak etme, sana yardım edeceğim.", "Don't worry[,] (I'll|I will) help you.", "O an verilen karar/söz → will.", "future"),
+    tr("Bu hafta sonu ne yapacaksın?", ["What are you going to do this weekend?", "What will you do this weekend?", "What are you doing this weekend?"], "Plan sorusu: What are you going to do …?", "future"),
+    fill("I think AI ___ (change) our jobs.", ["will change", "'ll change"], "I think + tahmin → will + yalın fiil.", "future"),
+    fill("Look at those clouds! It ___ (rain).", ["is going to rain", "'s going to rain"], "Kanıta dayalı tahmin → be going to.", "future"),
+    fill("She ___ (not / come) to the meeting tomorrow.", ["won't come", "will not come", "isn't coming", "is not coming", "isn't going to come"], "Olumsuz gelecek: won't + yalın fiil.", "future"),
+    fill("We ___ (launch) the app next month. Everything is planned.", ["are going to launch", "'re going to launch", "are launching"], "Önceden planlanmış → be going to.", "future"),
+    fill("___ you help me with this bug, please?", "Will", "Rica: Will you …? (Can you / Could you da olur)", "future"),
+    fix("I will to call you later.", "(I'll|I will) call you later.", "will'den sonra to gelmez; fiil yalın.", "future"),
+    fix("She will goes to Berlin next year.", ["(She'll|She will) go to Berlin next year.", "(She's|She is) going to go to Berlin next year."], "will'den sonra fiil yalın: go (goes değil).", "future"),
+    fix("I going to learn deep learning.", "(I'm|I am) going to learn deep learning.", "going to'dan önce am gerekir.", "future"),
+    fix("They are going to moving abroad.", "(They're|They are) going to move abroad.", "going to + yalın fiil (moving değil).", "future"),
+    fix("I probably will finish it tomorrow.", "(I'll|I will) probably finish it tomorrow.", "probably genelde will'den sonra gelir.", "word-order"),
+    order("Seneye yeni bir dil öğreneceğim.", "I am going to learn a new language next year.", "Özne + am going to + fiil + nesne + zaman.", "word-order"),
+    order("Toplantı muhtemelen geç başlayacak.", "The meeting will probably start late.", "will + probably + yalın fiil.", "word-order"),
+    tr("Kesinlikle bu kursu bitireceğim.", ["(I'll|I will) definitely finish this course.", "(I'm|I am) definitely going to finish this course."], "definitely will'den sonra: I'll definitely …", "future"),
+    tr("Toplantının zamanında başlaması pek olası değil.", "(It's|It is) unlikely (that |)the meeting will start on time.", "It's unlikely that + will.", "future"),
+    tr("Para biriktirip yurt dışına gideceğim.", "(I'm|I am) going to save money and (go|travel|move) abroad.", "Plan → going to; 'yurt dışına' = abroad (to yok).", "future"),
+  ],
+);
