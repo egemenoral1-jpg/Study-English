@@ -48,7 +48,7 @@ const article: Article = {
     {
       id: "q3",
       question: "What is SQL used for?",
-      sample: "SQL is a language that developers use to read or change data in a database.",
+      sample: "SQL is a language that developers use to read or change data in a database. You write a query, and the database returns the result.",
       keywords: ["language", "read", "change", "data", "query"],
     },
     {

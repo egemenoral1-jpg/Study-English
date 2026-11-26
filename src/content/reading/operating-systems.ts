@@ -41,7 +41,7 @@ const article: Article = {
     {
       id: "q2",
       question: "How can many programs run at the same time on one processor?",
-      sample: "The operating system gives each program a very short turn and switches between them very quickly, so it looks like they run together.",
+      sample: "The operating system gives each program a very short turn and switches between them very quickly, so it looks like they run together. This is called multitasking.",
       keywords: ["short turn", "switches", "quickly", "looks like", "multitasking"],
     },
     {
