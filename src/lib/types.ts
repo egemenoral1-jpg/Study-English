@@ -52,7 +52,7 @@ export interface VocabDay {
 
 // ─────────────────────────── VERİTABANI KAYITLARI ───────────────────────────
 
-export type WordSource = "seed" | "custom" | "reading";
+export type WordSource = "seed" | "custom" | "reading" | "phrase";
 
 /** Bir kelime + aralıklı tekrar (SM-2) durumu. */
 export interface WordRecord {
@@ -84,7 +84,7 @@ export interface WordRecord {
   firstReview?: number;
 }
 
-export type ActivityKind = "review" | "grammar" | "reading" | "writing";
+export type ActivityKind = "review" | "grammar" | "reading" | "writing" | "phrases";
 
 /** Günlük görevler, seri ve haftalık grafik için her etkinlik kaydedilir. */
 export interface ActivityRecord {
@@ -137,6 +137,17 @@ export interface ReadingAnswerRecord {
   grade?: SelfGrade;
   ts: number;
   date: string;
+}
+
+/** Kalıplar bölümünde her ifadenin alıştırma geçmişi. */
+export interface PhraseProgressRecord {
+  /** Phrase.id ("kategori:ifade-slug") */
+  id: string;
+  correct: number;
+  wrong: number;
+  /** Arka arkaya doğru sayısı; 2 ve üstü = öğrenildi */
+  streak: number;
+  lastTs: number;
 }
 
 /** Basit anahtar-değer ayarları (günlük yeni kart sayısı vb.). */

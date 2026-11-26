@@ -11,6 +11,7 @@ const FIELDS: { key: keyof Settings; label: string; hint: string; min: number; m
   { key: "newPerDay", label: "Günlük yeni kelime", hint: "Bir günde en fazla kaç yeni kart gelsin.", min: 0, max: 60 },
   { key: "dailyReviews", label: "Günlük tekrar hedefi", hint: "Ana sayfadaki 'Kelime tekrarı' görevi.", min: 5, max: 200 },
   { key: "dailyGrammar", label: "Günlük gramer hedefi", hint: "Ana sayfadaki 'Gramer alıştırması' görevi (soru).", min: 5, max: 100 },
+  { key: "dailyPhrases", label: "Günlük kalıp hedefi", hint: "Ana sayfadaki 'Kalıp alıştırması' görevi (ifade).", min: 5, max: 100 },
 ];
 
 export default function SettingsPage() {

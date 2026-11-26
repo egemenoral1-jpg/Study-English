@@ -24,7 +24,7 @@ export function WeeklyChart({ week }: { week: DayActivity[] }) {
           {sel.date === today ? "Bugün" : `${weekdayShort(sel.date)} ${formatShort(sel.date)}`}: {sel.total} etkinlik
         </span>
         <span className="text-stone-500">
-          {sel.review} kelime · {sel.grammar} gramer · {sel.reading} okuma · {sel.writing} yazma
+          {sel.review} kelime · {sel.grammar} gramer · {sel.reading} okuma · {sel.writing} yazma · {sel.phrases} kalıp
         </span>
       </div>
 

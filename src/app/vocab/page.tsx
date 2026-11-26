@@ -50,6 +50,7 @@ export default function VocabPage() {
     }));
     out.push({ id: "custom", title: "Kendi kelimelerim", subtitle: "Elle eklediklerin", words: byGroup.get("custom") ?? [] });
     out.push({ id: "reading", title: "Okumadan eklenenler", subtitle: "Makalelerdeki işaretli kelimeler", words: byGroup.get("reading") ?? [] });
+    out.push({ id: "phrase", title: "Kalıplardan eklenenler", subtitle: "Kalıplar bölümünden desteye eklediklerin", words: byGroup.get("phrase") ?? [] });
     return out;
   }, [words]);
 

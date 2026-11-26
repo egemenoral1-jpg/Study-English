@@ -14,6 +14,7 @@ export interface DayActivity {
   grammar: number;
   reading: number;
   writing: number;
+  phrases: number;
   total: number;
 }
 
@@ -44,7 +45,7 @@ export async function loadDashboard(): Promise<DashboardData> {
   const streak = computeStreak(new Set(allDates as string[]));
 
   const weekRows = await db.activity.where("date").between(days[0], days[days.length - 1], true, true).toArray();
-  const week: DayActivity[] = days.map((date) => ({ date, review: 0, grammar: 0, reading: 0, writing: 0, total: 0 }));
+  const week: DayActivity[] = days.map((date) => ({ date, review: 0, grammar: 0, reading: 0, writing: 0, phrases: 0, total: 0 }));
   const byDate = new Map(week.map((d) => [d.date, d]));
   for (const r of weekRows) {
     const d = byDate.get(r.date);
@@ -57,6 +58,7 @@ export async function loadDashboard(): Promise<DashboardData> {
   const tasks: DailyTask[] = [
     { id: "review", label: "Kelime tekrarı", done: t.review, goal: settings.dailyReviews, href: "/vocab/study/" },
     { id: "grammar", label: "Gramer alıştırması", done: t.grammar, goal: settings.dailyGrammar, href: "/grammar/" },
+    { id: "phrases", label: "Kalıp alıştırması", done: t.phrases, goal: settings.dailyPhrases, href: "/phrases/" },
     { id: "reading", label: "Okuma (1 makale sorusu)", done: Math.min(t.reading, 1), goal: 1, href: "/reading/" },
     { id: "writing", label: "Yazma (günlük)", done: Math.min(t.writing, 1), goal: 1, href: "/writing/" },
   ];

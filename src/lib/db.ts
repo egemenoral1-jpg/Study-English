@@ -10,6 +10,7 @@ import type {
   ActivityRecord,
   MistakeRecord,
   MistakeSource,
+  PhraseProgressRecord,
   ReadingAnswerRecord,
   SettingRecord,
   WordRecord,
@@ -26,6 +27,7 @@ export class StudyDB extends Dexie {
   writings!: Table<WritingRecord, number>;
   readingAnswers!: Table<ReadingAnswerRecord, number>;
   settings!: Table<SettingRecord, string>;
+  phraseProgress!: Table<PhraseProgressRecord, string>;
 
   constructor() {
     super("study-english");
@@ -42,6 +44,10 @@ export class StudyDB extends Dexie {
     // v2: hata defterini zamana göre sıralamak için ts indeksi
     this.version(2).stores({
       mistakes: "++id, date, category, source, ts",
+    });
+    // v3: Kalıplar bölümünün ilerleme tablosu
+    this.version(3).stores({
+      phraseProgress: "id, lastTs",
     });
   }
 }
@@ -121,6 +127,8 @@ export const DEFAULT_SETTINGS = {
   dailyReviews: 20,
   /** Günlük gramer hedefi (soru sayısı) */
   dailyGrammar: 10,
+  /** Günlük kalıp alıştırması hedefi (ifade sayısı) */
+  dailyPhrases: 10,
 };
 export type Settings = typeof DEFAULT_SETTINGS;
 
@@ -137,7 +145,7 @@ export async function setSetting<K extends keyof Settings>(key: K, value: Settin
 
 // ─────────────────────────── Yedekleme ───────────────────────────
 
-const BACKUP_TABLES = ["words", "activity", "mistakes", "writings", "readingAnswers", "settings"] as const;
+const BACKUP_TABLES = ["words", "activity", "mistakes", "writings", "readingAnswers", "settings", "phraseProgress"] as const;
 
 export interface BackupFile {
   app: "study-english";
