@@ -174,7 +174,9 @@ export const RULES: Rule[] = [
     title: "“like” fiil değil",
     explain: "Burada like “gibi” anlamında; cümleye bir fiil gerekir: is like / looks like / is similar to.",
     example: { wrong: "An IP address like a home address.", right: "An IP address is like a home address." },
-    pattern: /^\s*(?:a|an|the|my|your|his|her|our|their|this|that)\s+\w+(?:\s+\w+)?\s+like\s+(?:a|an|the)\b/,
+    pattern: /^\s*(?:(?:a|an|the|my|your|his|her|our|their|this|that)\s+)?(\w+)(?:\s+\w+)?\s+like\s+(?:a|an|the)\b/,
+    // "I like a good book" gibi cümlelerde like gerçekten fiildir
+    when: (m) => !/^(i|you|we|they|he|she|it|people|users|developers|many|most|some|kids|children)$/i.test(m[1]),
   },
 
   // ═════════ 2. FİİL VARKEN is/am/are ═════════

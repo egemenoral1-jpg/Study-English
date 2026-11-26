@@ -12,6 +12,7 @@ const ids = (text: string) => checkText(text).map((i) => i.ruleId);
 const SHOULD_CATCH: [string, string][] = [
   // 1. fiili unutmak
   ["An IP address like a home address.", "like-without-verb"],
+  ["IP address like a home address.", "like-without-verb"],
   ["I late at weekend.", "missing-be-adjective"],
   // 2. fiil varken is
   ["Barış is cooked köfte.", "be-plus-ed"],
@@ -86,6 +87,7 @@ const SHOULD_NOT_CATCH: string[] = [
   "Barış usually wakes up at 7 a.m. every day.",
   "My girlfriend drinks coffee every morning.",
   "An IP address is like a home address.",
+  "I like a good challenge.",
   "I'm working from home today.",
   "I've been working here for two years.",
   "I've been learning English since 2022.",
