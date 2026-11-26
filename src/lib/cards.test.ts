@@ -32,9 +32,24 @@ describe("pickCardType", () => {
 });
 
 describe("seed verisi", () => {
-  it("210 kelime var ve kimlikler benzersiz", () => {
-    expect(ALL_SEED_WORDS).toHaveLength(210);
-    expect(new Set(ALL_SEED_WORDS.map((w) => w.id)).size).toBe(210);
+  it("310 kelime var (210 plan + 100 sık kullanılan) ve kimlikler benzersiz", () => {
+    expect(ALL_SEED_WORDS).toHaveLength(310);
+    expect(new Set(ALL_SEED_WORDS.map((w) => w.id)).size).toBe(310);
+  });
+
+  it("aynı kelime iki kez eklenmemiş", () => {
+    const seen = new Map<string, string>();
+    for (const w of ALL_SEED_WORDS) {
+      const key = w.word.toLowerCase();
+      expect(seen.get(key), `${w.word}: ${seen.get(key)} ve ${w.id}`).toBeUndefined();
+      seen.set(key, w.id);
+    }
+  });
+
+  it("sık kullanılan 100 kelimenin her birinden boşluk doldurma kartı üretilebiliyor", () => {
+    const core = ALL_SEED_WORDS.filter((w) => w.id.startsWith("c100-"));
+    expect(core).toHaveLength(100);
+    for (const w of core) expect(makeCloze(w.word, w.example), w.id).not.toBeNull();
   });
 });
 

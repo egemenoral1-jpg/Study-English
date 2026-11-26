@@ -44,7 +44,7 @@ export default function VocabPage() {
     }
     const out: Group[] = VOCAB_DAYS.map((d) => ({
       id: `day-${d.day}`,
-      title: `Gün ${d.day} · ${d.theme}`,
+      title: d.title ?? `Gün ${d.day} · ${d.theme}`,
       subtitle: d.grammar,
       words: byGroup.get(`day-${d.day}`) ?? [],
     }));
@@ -71,7 +71,7 @@ export default function VocabPage() {
     <>
       <PageHeader
         title="Kelime"
-        subtitle="7 günlük plandaki 210 kelime + kendi eklediklerin. Aralıklı tekrar ile çalış."
+        subtitle="7 günlük plandaki 210 kelime, en sık kullanılan 100 kelime ve kendi eklediklerin. Aralıklı tekrar ile çalış."
         action={
           <Link href="/vocab/study/" className="btn-primary">
             Çalışmaya başla {totals.due > 0 && <span className="rounded-full bg-white/25 px-2 text-xs">{totals.due}</span>}

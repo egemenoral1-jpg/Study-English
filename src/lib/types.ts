@@ -41,7 +41,10 @@ export interface VocabSeed {
 
 /** PDF'teki bir gün: tema + o günün gramer konusu + 30 kelime. */
 export interface VocabDay {
+  /** Grup numarası (1-7 PDF günleri, 8+ ek listeler). Kimlik olarak kullanılır: day-N */
   day: number;
+  /** Listede görünen başlık. Yoksa "Gün N · tema" yazılır. */
+  title?: string;
   theme: string;
   grammar: string;
   words: VocabSeed[];
