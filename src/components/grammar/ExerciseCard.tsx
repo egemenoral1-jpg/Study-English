@@ -134,7 +134,12 @@ export function ExerciseCard({ exercise, onDone }: Props) {
               className="input font-mono"
               value={value}
               onChange={(e) => setValue(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && check()}
+              onKeyDown={(e) => {
+                if (e.key !== "Enter") return;
+                // Varsayılanı engelle: yoksa aynı Enter, odağın geçtiği "Devam" butonuna tıklar ve sonuç görünmeden geçilir
+                e.preventDefault();
+                check();
+              }}
               placeholder="Cevabın…"
               autoCapitalize="off"
               autoComplete="off"
