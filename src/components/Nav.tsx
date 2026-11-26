@@ -9,6 +9,7 @@ const ITEMS = [
   { href: "/", label: "Ana sayfa", short: "Ana", icon: "⌂" },
   { href: "/vocab/", label: "Kelime", short: "Kelime", icon: "Aa" },
   { href: "/grammar/", label: "Gramer", short: "Gramer", icon: "§" },
+  { href: "/phrases/", label: "Kalıplar", short: "Kalıp", icon: "❝" },
   { href: "/reading/", label: "Okuma", short: "Okuma", icon: "❡" },
   { href: "/writing/", label: "Yazma", short: "Yazma", icon: "✎" },
   { href: "/mistakes/", label: "Hata defteri", short: "Hatalar", icon: "!" },
@@ -57,7 +58,7 @@ export function Nav() {
 
       {/* Mobil: alt menü (Ayarlar hariç; ona ana sayfadan ulaşılır) */}
       <nav className="fixed inset-x-0 bottom-0 z-40 flex border-t border-stone-200 bg-white/95 backdrop-blur md:hidden dark:border-stone-800 dark:bg-stone-900/95">
-        {ITEMS.slice(0, 6).map((it) => {
+        {ITEMS.slice(0, -1).map((it) => {
           const active = isActive(pathname, it.href);
           return (
             <Link

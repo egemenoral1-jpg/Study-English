@@ -94,9 +94,10 @@ export default function Dashboard() {
       </div>
 
       {/* Hızlı başlat */}
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
         <QuickLink href="/vocab/study/" title="Kelime tekrarı" sub={data ? `${data.dueWords} kart bekliyor` : "…"} icon="Aa" />
         <QuickLink href="/grammar/" title="Gramer" sub="Tek kalıp, bol pratik" icon="§" />
+        <QuickLink href="/phrases/practice/" title="Kalıplar" sub="Kalıplaşmış ifadeler" icon="❝" />
         <QuickLink href="/reading/" title="Okuma" sub="Bilgisayar konulu makaleler" icon="❡" />
         <QuickLink href="/writing/" title="Günlük yaz" sub="Bugün neler yaptın?" icon="✎" />
       </div>
