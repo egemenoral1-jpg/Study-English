@@ -8,9 +8,10 @@
 | Bölüm | Ne yapar |
 |---|---|
 | **Ana sayfa** | Günlük görevler (kelime tekrarı, gramer, okuma, yazma), seri (streak), son 7 günün grafiği, en sık yaptığın hatalar |
-| **Kelime** | 7 günlük plandaki 210 kelime + kendi eklediklerin. SM-2 aralıklı tekrar; 3 kart türü (EN→TR, TR→EN yazarak, boşluk doldurma), sesli telaffuz, harf harf fark gösterimi |
+| **Kelime** | 7 günlük plandaki 210 kelime + en sık kullanılan 100 kelime (A2+/B1: fiil, isim, sıfat, zarf/bağlaç) + kendi eklediklerin. SM-2 aralıklı tekrar; 3 kart türü (EN→TR, TR→EN yazarak, boşluk doldurma), sesli telaffuz, harf harf fark gösterimi |
 | **Gramer** | 10 konu × 22 alıştırma (çeviri, boşluk doldurma, hatayı düzelt, kelime sıralama). Cevabın kelime kelime karşılaştırılır; konu ilerlemesi ve hatalarına göre odaklı tekrar |
-| **Okuma** | Bilgisayar mühendisliği konulu 6 makale (A2+ → B1+). Zor kelimeye tıkla → anlamı + desteye ekle. Sorulara kendi cümlenle cevap ver, örnek cevapla karşılaştır, kopyala-yapıştır uyarısı |
+| **Okuma** | Bilgisayar mühendisliği konulu 14 makale (A2+ → B1+; işletim sistemi, ağ, veritabanı, bulut, algoritma, derleyici, şifreleme, Docker…). Zor kelimeye tıkla → anlamı + desteye ekle. Sorulara kendi cümlenle cevap ver, örnek cevapla karşılaştır, kopyala-yapıştır uyarısı |
+| **Kalıplar** | 12 kategoride ~200 kalıplaşmış ifade (sohbet, fikir belirtme, toplantı, e-posta, iş görüşmesi, teknik konuşma, phrasal verb, deyim…). Türkçesini gör → İngilizcesini yaz; zorlandıkların daha sık gelir, 2 kez üst üste doğru = öğrenildi. İfadeyi kelime destesine ekleyebilirsin |
 | **Yazma** | "Bugün neler yaptın?" günlüğü (3–5 cümle), "Kendi cümleni kur" (kalıp ya da kelime hedefi), canlı hata kontrolü, **Claude'a sor** butonu, tarihli geçmiş |
 | **Hata defteri** | 59 kurallık hata motoru (en sık yaptığım 12 hata türü + modal/gelecek zaman). Hızlı kontrol, kategori özeti, son hatalar, her kategori için ilgili gramer alıştırmasına bağlantı |
 | **Ayarlar & yedek** | Tema (açık/koyu/sistem), günlük hedefler, JSON yedek indir/yükle, ilerlemeyi sıfırla |
@@ -50,6 +51,7 @@ src/
 │  ├─ page.tsx          Ana sayfa
 │  ├─ vocab/            Kelime listesi + /vocab/study çalışma oturumu
 │  ├─ grammar/          Konu listesi + /grammar/[topic]
+│  ├─ phrases/          Kalıplar + /phrases/practice alıştırması
 │  ├─ reading/          Makale listesi + /reading/[id]
 │  ├─ writing/          Günlük, kendi cümleni kur, geçmiş
 │  ├─ mistakes/         Hata defteri ve hızlı kontrol
@@ -57,6 +59,8 @@ src/
 ├─ components/          Arayüz parçaları (bölüm başına klasör)
 ├─ content/             TÜM içerik — kod bilmeden düzenlenebilir
 │  ├─ vocab/day1..7.ts  Kelimeler (PDF'teki 7 günlük plan)
+│  ├─ vocab/core-*.ts   Sık kullanılan 100 kelime (4 grup)
+│  ├─ phrases/*.ts      Kalıplaşmış ifadeler (kategori başına bir dosya)
 │  ├─ grammar/*.ts      Gramer konuları ve alıştırmalar
 │  ├─ reading/*.ts      Makaleler, sözlükçe, sorular
 │  ├─ rules.ts          Hata kontrol kuralları + yazım hataları sözlüğü
@@ -125,13 +129,22 @@ Sonra `src/lib/checker.test.ts` dosyasına bir "yakalamalı" ve gerekirse bir "y
 
 Yazım hatası eklemek için `rules.ts` içindeki `MISSPELLINGS` sözlüğüne `yanlış: "doğru"` satırı yeterli.
 
+### Kalıplaşmış ifade
+`src/content/phrases/` altındaki ilgili kategori dosyasına bir satır ekle:
+
+```ts
+p("I'm running late.", "Geç kalıyorum.", "Sorry, I'm running late. I'll be there soon.", { answers: ["I am running late."], note: "İsteğe bağlı kısa not" }),
+```
+
+`answers` başka doğru söyleyişleri listeler (gramer alıştırmalarındaki `(a|b)` ve `[isteğe bağlı]` söz dizimi geçerli). Örnek cümle ifadeyi içermeli (test kontrol eder). Yeni kategori için dosyayı `defineCategory(...)` ile oluşturup `index.ts` içindeki `PHRASE_CATEGORIES` listesine ekle.
+
 ### Yazma kalıbı
 `src/content/writing.ts` içindeki `PATTERNS` listesine `{ id, label, hint, example, test }` ekle. `test` regex'i, kalıbın cümlede gerçekten kullanıldığını kontrol eder. Örnek cümle kendi testini geçmek zorundadır (otomatik test edilir).
 
 ## Teknik notlar
 
 - **Next.js 16 (App Router) + TypeScript + Tailwind CSS 4**, `output: "export"` ile tamamen statik.
-- **Dexie (IndexedDB)**: `words`, `activity`, `mistakes`, `writings`, `readingAnswers`, `settings` tabloları.
+- **Dexie (IndexedDB)**: `words`, `activity`, `mistakes`, `writings`, `readingAnswers`, `phraseProgress`, `settings` tabloları.
 - **SM-2**: Tekrar Et = 1, Zor = 3, İyi = 4, Kolay = 5. Bilinemeyen kart 10 dakika sonra aynı oturumda tekrar gelir.
 - **Kural motoru**: cümle cümle regex + koşul fonksiyonları. Mükemmel değildir; amaç *benim* tipik hatalarımı yakalamak. Emin olmadığın yerde "Claude'a sor".
 - **Telaffuz**: tarayıcının Web Speech API'si (ücretsiz, çevrimdışı çalışabilir).
